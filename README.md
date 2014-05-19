@@ -2,9 +2,14 @@ $.GhosteryDetect
 =============
 Client-side script to detect if Ghostery is installed.
 
+Example:
+------------
+Example is included in test.html file.
+
+
 Usage:
 ------------
-`detected`: Used to define what function to call if Ghostery is detected.  the script what to do if AdBlock has been detected.
+`detected`: Used to define what function to call if Ghostery is detected.
 
 `undetected`: Used to define what function to call if Ghostery is not detected.
 

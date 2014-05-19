@@ -1,4 +1,4 @@
-//Code to detect Ghostery. Script calls Adsense server to find out if ad blocking software is being used.
+//Code to detect Ghostery. Script calls Google Analytics server to find out if Ghostery is being used to block tracking scripts.
 
 (function ($) {
     $.GhosteryDetect = function() {
@@ -10,7 +10,7 @@
 
         var element = $('<IFRAME/>', {
             id: 'adserver',
-            src: '//pagead2.googlesyndication.com/pagead/show_ads.js',
+            src: 'http://www.google-analytics.com/analytics.js',
             height: '300',
             width: '300',
             style: 'position: absolute; top: -1000px; left: -1000px;'
