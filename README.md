@@ -4,7 +4,7 @@ Client-side script to detect if Ghostery is installed.
 
 Example:
 ------------
-Example is included in test.html file.
+Demo is live at [murtza.org/detect](http://murtza.org/detect).
 
 Credits:
 ------------
