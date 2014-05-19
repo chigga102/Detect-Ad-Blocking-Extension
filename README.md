@@ -1,6 +1,6 @@
-Detect Ghostery
+Detect Ad Block Extension
 =============
-Client-side script to detect if Ghostery is installed.
+Client-side script to detect if ad blocking software is running on a user's browser.
 
 Example:
 ------------

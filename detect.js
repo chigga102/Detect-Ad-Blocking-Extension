@@ -1,5 +1,5 @@
-//Script detects Ghostery
-//Script calls Google Ads server, which Ghostery blocks by default.
+//Script detects ad blocking extenions
+//Script calls Google Ads server, which Adblock and Ghostery block by default.
 //Based on code from https://github.com/georules/adblock-detect
 (function(window, undefined) {
 
