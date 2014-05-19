@@ -1,6 +1,6 @@
 //Script detects Ghostery
 //Script calls Google Analytics server, which Ghostery blocks.
-//Based on code from https://github.com/georules/adblock-detec
+//Based on code from https://github.com/georules/adblock-detect
 (function(window, undefined) {
 
 function Adblocked() {
