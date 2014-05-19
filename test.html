@@ -1,1 +1,19 @@
 //Example webpage where you can load script
+<html>
+<head>
+<script src="ghosterydetect.js"></script>
+<script>
+$.GhosteryDetect({
+  detected: function() {
+    $('body').text('Ghostery detected.');
+  },
+  undetected: function() {
+    $('body').text('Ghostery not detected.');
+  }
+  support: '#footer'
+});
+</script>
+</head>
+<body>
+</body>
+</html>
