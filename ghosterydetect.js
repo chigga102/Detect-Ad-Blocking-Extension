@@ -1,10 +1,10 @@
 //Script detects Ghostery
-//Script calls Google Analytics server, which Ghostery blocks.
+//Script calls Google Ads server, which Ghostery blocks by default.
 //Based on code from https://github.com/georules/adblock-detect
 (function(window, undefined) {
 
 function Adblocked() {
-  this.scriptFile = "//www.google-analytics.com/ga.js";
+  this.scriptFile = "//pagead2.googlesyndication.com/pagead/show_ads.js";
 }
 
 Adblocked.prototype.isAdblocked = function() {
@@ -64,4 +64,5 @@ window.adblocked = {
 }
 
 })(window)
+
 
