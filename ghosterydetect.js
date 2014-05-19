@@ -1,37 +1,67 @@
-//Code to detect Ghostery. Script calls Google Analytics server to find out if Ghostery is being used to block tracking scripts.
+//Script detects Ghostery
+//Script calls Google Analytics server, which Ghostery blocks.
+//Based on code from https://github.com/georules/adblock-detec
+(function(window, undefined) {
 
-(function ($) {
-    $.GhosteryDetect = function() {
-        var options = $.extend({
-            support: false,
-            detected: function() {},
-            undetected: function() {}
-        }, arguments[0] || {});
+function Adblocked() {
+  this.scriptFile = "//www.google-analytics.com/ga.js";
+}
 
-        var element = $('<IFRAME/>', {
-            id: 'adserver',
-            src: 'http://www.google-analytics.com/analytics.js',
-            height: '300',
-            width: '300',
-            style: 'position: absolute; top: -1000px; left: -1000px;'
-        });
+Adblocked.prototype.isAdblocked = function() {
+  if (typeof(window.google_ad_block) === "undefined") {
+    return true;
+  }
+  else {
+    return false;
+  }
+}
 
-        $('body').append(element);
-        if (options.support)
-        {
-            $(options.support).append('Ghostery detected.');
-        }
-        setTimeout(function () {
-            var adserver = $('#adserver');
-            if (adserver.css('visibility') === 'hidden' || adserver.css('display') === 'none')
-            {
-                options.detected.call(this);
-            }
-            else
-            {
-                options.undetected.call(this);
-            }
-            element.remove();
-        }, 300);
-    };
-})(jQuery);
+Adblocked.prototype.done = function(ctx) {
+  ctx = (typeof(ctx) === "undefined") ? this : ctx 
+  if (ctx.isAdblocked())  {
+    window.adblocked.result = true
+  }
+  else {
+    window.adblocked.result = false
+  }
+  var error = null;
+  window.adblocked.userCallback(error, window.adblocked.result)
+}
+
+Adblocked.prototype.insert = function() {
+  var body = document.getElementsByTagName('body')[0]
+  var ad = document.createElement("div")
+  ad.style.display = "none";
+  adScript = document.createElement("script")
+  adScript.setAttribute("type","text/javascript")
+  adScript.setAttribute("src",this.scriptFile)
+  body.appendChild(ad).appendChild(adScript)
+  that = this
+  adScript.onload = function() {that.done(that)};
+  adScript.onerror = adScript.onload;
+  return this
+}
+
+var checkAds = function(userCallback) {
+  if (typeof(userCallback) !== "undefined") { 
+    window.adblocked.userCallback = userCallback
+  }
+  var a = new Adblocked()
+  // if it appears that ads are blocked already
+  if (a.isAdblocked()) {
+    a.insert() // attempt to load ads
+  }
+  // if ads have already loaded
+  else {
+    a.done()    
+  }
+}
+
+window.adblocked = {
+  check : checkAds,
+  userCallback : function() {},
+  result : "unknown"
+}
+
+})(window)
+
